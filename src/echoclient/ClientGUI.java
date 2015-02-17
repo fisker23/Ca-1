@@ -13,12 +13,12 @@ import java.util.logging.Logger;
  *
  * @author Andreas Fisker
  */
-public class ClientGUI extends javax.swing.JFrame implements EchoListener {
+public class ClientGUI extends javax.swing.JFrame implements Listener {
 
     /**
      * Creates new form ClientGUI
      */
-         EchoClient ec = new EchoClient();
+         Client ec = new Client();
     public ClientGUI() {
 
         try {
@@ -26,7 +26,7 @@ public class ClientGUI extends javax.swing.JFrame implements EchoListener {
              } catch (IOException ex) {
                  Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
              }
-        ec.registerEchoListener(this);
+        ec.registerListener(this);
         ec.start();
         initComponents();
           this.getRootPane().setDefaultButton(jButton1);

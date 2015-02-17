@@ -5,5 +5,10 @@ package shared;
  */
 public class ProtocolStrings {
 
-    public static final String STOP = "##STOP##";
+    public static final String CLOSE = "CLOSE#";
+    
+    public static final String CONNECT = "CONNECT#";
+    
+    public static final String SEND = "SEND#";
+    
 }

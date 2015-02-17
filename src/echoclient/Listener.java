@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Andreas Fisker
  */
-public interface EchoListener {
+public interface Listener {
     
     void messageArrived(String data);
    

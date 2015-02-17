@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import shared.ProtocolStrings;
 import utils.Utils;
 
-public class EchoServer {
+public class Server {
 
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
@@ -26,22 +26,6 @@ public class EchoServer {
         keepRunning = false;
     }
 
-    private static void handleClient(Socket socket) throws IOException {
-        Scanner input = new Scanner(socket.getInputStream());
-        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-
-        String message = input.nextLine(); //IMPORTANT blocking call
-        Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
-        while (!message.equals(ProtocolStrings.STOP)) {
-            writer.println(message.toUpperCase());
-            Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
-            message = input.nextLine(); //IMPORTANT blocking call
-        }
-        writer.println(ProtocolStrings.STOP);//Echo the stop message back to the client for a nice closedown
-        socket.close();
-        Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Closed a Connection");
-    }
-
     public void removeHandler(clientHandler ch){
         chl.remove(ch);
     }
@@ -50,20 +34,20 @@ public class EchoServer {
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
 
-        Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Sever started. Listening on: " + port + ", bound to: " + ip);
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Sever started. Listening on: " + port + ", bound to: " + ip);
         try {
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(ip, port));
             do {
                 Socket socket = serverSocket.accept(); //Important Blocking call
-                Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Connected to a client");
+                Logger.getLogger(Server.class.getName()).log(Level.INFO, "Connected to a client");
          //       handleClient(socket);
                 clientHandler ch = new clientHandler(socket, this);
                 ch.start();
                 chl.add(ch);
             } while (keepRunning);
         } catch (IOException ex) {
-            Logger.getLogger(EchoServer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -76,12 +60,12 @@ public class EchoServer {
     public static void main(String[] args) {
         try {
             String logFile = properties.getProperty("logFile");
-            Utils.setLogFile(logFile, EchoServer.class.getName());
-            new EchoServer().runServer();
+            Utils.setLogFile(logFile, Server.class.getName());
+            new Server().runServer();
         } catch (Exception e) {
             System.err.println(e);
         } finally {
-            Utils.closeLogger(EchoServer.class.getName());
+            Utils.closeLogger(Server.class.getName());
         }
     }
 }

@@ -22,9 +22,9 @@ public class clientHandler extends Thread {
     Scanner input;
     PrintWriter writer;
     Socket socket;
-    EchoServer es;
+    Server es;
 
-    public clientHandler(Socket socket, EchoServer es) {
+    public clientHandler(Socket socket, Server es) {
         try {
             this.socket = socket;
             this.es = es;
@@ -42,20 +42,20 @@ public class clientHandler extends Thread {
     public void run() {
 
         String message = input.nextLine(); //IMPORTANT blocking call
-        Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
-        while (!message.equals(ProtocolStrings.STOP)) {
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
+        while (!message.equals(ProtocolStrings.CLOSE)) {
             es.send(message);
-            Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
+            Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
             message = input.nextLine(); //IMPORTANT blocking call
         }
-        writer.println(ProtocolStrings.STOP);//Echo the stop message back to the client for a nice closedown
+        writer.println(ProtocolStrings.CLOSE);//Echo the stop message back to the client for a nice closedown
         try {
             socket.close();
             es.removeHandler(this);
         } catch (IOException ex) {
             Logger.getLogger(clientHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Logger.getLogger(EchoServer.class.getName()).log(Level.INFO, "Closed a Connection");
+        Logger.getLogger(Server.class.getName()).log(Level.INFO, "Closed a Connection");
     }
 
 }
