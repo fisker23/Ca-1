@@ -1,42 +1,82 @@
-feb. 17, 2015 4:41:14 PM Server.EchoServer runServer
-INFO: Sever started. Listening on: 9090, bound to: localhost
-feb. 17, 2015 4:42:22 PM Server.EchoServer runServer
+feb. 17, 2015 8:15:34 PM Server.Server runServer
+INFO: Sever started. Listening on: 9090, bound to: 192.168.1.2
+feb. 17, 2015 8:15:38 PM Server.Server runServer
 INFO: Connected to a client
-feb. 17, 2015 4:42:24 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:42:24 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:42:26 PM Server.clientHandler run
-INFO: Received the message: STOP 
-feb. 17, 2015 4:42:28 PM Server.clientHandler run
-INFO: Received the message: #STOP# 
-feb. 17, 2015 4:42:30 PM Server.clientHandler run
-INFO: Received the message: SSDL� 
-feb. 17, 2015 4:42:34 PM Server.clientHandler run
-INFO: Received the message: ##STOP## 
-feb. 17, 2015 4:42:40 PM Server.clientHandler run
-INFO: Closed a Connection
-feb. 17, 2015 4:43:02 PM Server.EchoServer runServer
+feb. 17, 2015 8:15:38 PM Server.clientHandler run
+INFO: Received the message: CONNECT#LORTEPER 
+feb. 17, 2015 8:15:38 PM Server.clientHandler run
+INFO: Received the message: CONNECT#LORTEPER 
+feb. 17, 2015 8:15:38 PM Server.clientHandler run
+INFO: Received the message: SEND#*#STOR PIK 
+feb. 17, 2015 8:17:58 PM Server.Server runServer
 INFO: Connected to a client
-feb. 17, 2015 4:43:03 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:43:03 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:43:07 PM Server.clientHandler run
-INFO: Received the message: S#SD 
-feb. 17, 2015 4:43:09 PM Server.clientHandler run
-INFO: Received the message: SEND# 
-feb. 17, 2015 4:44:27 PM Server.EchoServer runServer
+feb. 17, 2015 8:18:02 PM Server.clientHandler run
+INFO: Received the message: DCONNE 
+feb. 17, 2015 8:18:02 PM Server.clientHandler run
+INFO: Received the message: DCONNE 
+feb. 17, 2015 8:18:06 PM Server.clientHandler run
+INFO: Received the message: ONNECT#HEJ 
+feb. 17, 2015 8:18:15 PM Server.clientHandler run
+INFO: Received the message: CONNECT#HEJ 
+feb. 17, 2015 8:18:22 PM Server.Server runServer
 INFO: Connected to a client
-feb. 17, 2015 4:44:28 PM Server.clientHandler run
-INFO: Received the message: HJ 
-feb. 17, 2015 4:44:28 PM Server.clientHandler run
-INFO: Received the message: HJ 
-feb. 17, 2015 4:44:29 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:44:29 PM Server.clientHandler run
-INFO: Received the message: HEJ 
-feb. 17, 2015 4:44:31 PM Server.clientHandler run
-INFO: Received the message: # 
-feb. 17, 2015 4:44:33 PM Server.clientHandler run
-INFO: Closed a Connection
+feb. 17, 2015 8:18:29 PM Server.clientHandler run
+INFO: Received the message: CONNECT# 
+feb. 17, 2015 8:18:29 PM Server.clientHandler run
+INFO: Received the message: CONNECT# 
+feb. 17, 2015 8:18:38 PM Server.clientHandler run
+INFO: Received the message: CONNECT#JOHNJOHN 
+feb. 17, 2015 8:18:59 PM Server.clientHandler run
+INFO: Received the message: CONNECT# 
+feb. 17, 2015 8:19:12 PM Server.clientHandler run
+INFO: Received the message:  
+feb. 17, 2015 8:19:19 PM Server.clientHandler run
+INFO: Received the message: CONNECT# 
+feb. 17, 2015 8:19:24 PM Server.clientHandler run
+INFO: Received the message: CONNECT#�%%�#"# 
+feb. 17, 2015 8:19:28 PM Server.clientHandler run
+INFO: Received the message: CONNE 
+feb. 17, 2015 8:19:32 PM Server.clientHandler run
+INFO: Received the message: CONNECT#12345 
+feb. 17, 2015 8:19:41 PM Server.clientHandler run
+INFO: Received the message: CONNECT#JOHNJOHNVERNERERENTYKMAND 
+feb. 17, 2015 8:19:45 PM Server.Server runServer
+INFO: Connected to a client
+feb. 17, 2015 8:19:45 PM Server.clientHandler run
+INFO: Received the message: CONNECT#LORTEPER 
+feb. 17, 2015 8:19:45 PM Server.clientHandler run
+INFO: Received the message: CONNECT#LORTEPER 
+feb. 17, 2015 8:19:45 PM Server.clientHandler run
+INFO: Received the message: SEND#*#STOR PIK 
+feb. 17, 2015 8:20:00 PM Server.clientHandler run
+INFO: Received the message: 4SEND#LILLEPENIS 
+feb. 17, 2015 8:20:08 PM Server.clientHandler run
+INFO: Received the message: SEND#L*#LILLEPENIS 
+feb. 17, 2015 8:20:13 PM Server.clientHandler run
+INFO: Received the message: SEND#�# 
+feb. 17, 2015 8:20:15 PM Server.clientHandler run
+INFO: Received the message: SENMD 
+feb. 17, 2015 8:20:21 PM Server.clientHandler run
+INFO: Received the message: SEND#*#LILLEPENMIS 
+feb. 17, 2015 8:21:26 PM Server.Server runServer
+INFO: Connected to a client
+feb. 17, 2015 8:21:26 PM Server.clientHandler run
+INFO: Received the message: SEND#LORTEPER#HANS 
+feb. 17, 2015 8:21:51 PM Server.clientHandler run
+INFO: Received the message: CONNECT#PER 
+feb. 17, 2015 8:22:04 PM Server.Server runServer
+INFO: Connected to a client
+feb. 17, 2015 8:22:04 PM Server.clientHandler run
+INFO: Received the message: SEND#PER#HANS 
+feb. 17, 2015 8:25:28 PM Server.Server runServer
+INFO: Connected to a client
+feb. 17, 2015 8:25:28 PM Server.clientHandler run
+INFO: Received the message: CONNECT#BOBARNE 
+feb. 17, 2015 8:25:28 PM Server.clientHandler run
+INFO: Received the message: CONNECT#BOBARNE 
+feb. 17, 2015 8:27:57 PM Server.Server runServer
+INFO: Connected to a client
+feb. 17, 2015 8:27:57 PM Server.clientHandler run
+INFO: Received the message: CONNECT#MAGNUS 
+feb. 17, 2015 8:27:57 PM Server.clientHandler run
+INFO: Received the message: CONNECT#MAGNUS 

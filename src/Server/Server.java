@@ -63,18 +63,18 @@ public class Server {
         }
     }
     
-     public void sendAll(String message, String name){
+     public void sendAll(String message, String sender){
          String[] str = message.split("#");
          
          for (clientHandler chl1 : chl) {
-             chl1.send("MESSAGE#"+name+"#"+str[str.length-1]);
+             chl1.send("MESSAGE#"+sender+"#"+str[str.length-1]);
          }
     }
-     public void send(String message, String names){
+     public void send(String message, String names, String sender){
          
          for (clientHandler ch : chl) {
              if (names.contains(ch.name)) {
-                 ch.send(message);
+                 ch.send("MESSAGE#" + sender + "#" + message);
              }
          }
      }

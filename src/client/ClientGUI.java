@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package echoclient;
+package client;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -100,9 +100,9 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String temp = jTextField1.getText().toString();
-        ec.send(temp);
-        jTextField1.setText("");
+//        String temp = jTextField1.getText().toString();
+//        ec.send(temp);
+//        jTextField1.setText("");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

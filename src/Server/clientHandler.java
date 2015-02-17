@@ -58,7 +58,7 @@ public class clientHandler extends Thread {
                     
                     serv.sendAll(message, name);
                 } else {
-                    serv.send("MESSAGE#" + str[1] + "#" + str[str.length - 1], str[1]);
+                    serv.send(str[str.length - 1], str[1], name);
                 }
             }
 
