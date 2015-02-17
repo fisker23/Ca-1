@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.pkg1;
+package echoclient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Andreas Fisker
  */
-public class Ca1 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public interface EchoListener {
     
+    void messageArrived(String data);
+   
+  
 }
