@@ -25,12 +25,24 @@ public class Server {
     public static void stopServer() {
         keepRunning = false;
     }
-
+    
+    public void allOnlineUsers(){
+        String all = "";
+        for (clientHandler ch : chl) {
+            all += ch.name+",";
+        }
+        for (clientHandler ch : chl) {
+            ch.send("ONLINE#"+all);
+        }
+      
+    }
+    
     public void removeHandler(clientHandler ch){
         chl.remove(ch);
     }
     
     private void runServer() {
+        
         int port = Integer.parseInt(properties.getProperty("port"));
         String ip = properties.getProperty("serverIp");
 
@@ -51,11 +63,21 @@ public class Server {
         }
     }
     
-     public void send(String message){
+     public void sendAll(String message, String name){
+         String[] str = message.split("#");
+         
          for (clientHandler chl1 : chl) {
-             chl1.send(message.toUpperCase());
+             chl1.send("MESSAGE#"+name+"#"+str[str.length-1]);
          }
     }
+     public void send(String message, String names){
+         
+         for (clientHandler ch : chl) {
+             if (names.contains(ch.name)) {
+                 ch.send(message);
+             }
+         }
+     }
 
     public static void main(String[] args) {
         try {

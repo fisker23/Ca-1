@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import shared.ProtocolStrings;
 
 /**
@@ -22,12 +23,13 @@ public class clientHandler extends Thread {
     Scanner input;
     PrintWriter writer;
     Socket socket;
-    Server es;
+    Server serv;
+    String name;
 
-    public clientHandler(Socket socket, Server es) {
+    public clientHandler(Socket socket, Server serv) {
         try {
             this.socket = socket;
-            this.es = es;
+            this.serv = serv;
             input = new Scanner(socket.getInputStream());
             writer = new PrintWriter(socket.getOutputStream(), true);
         } catch (IOException ex) {
@@ -35,7 +37,8 @@ public class clientHandler extends Thread {
         }
 
     }
-    public void send(String message){
+
+    public void send(String message) {
         writer.println(message);
     }
 
@@ -44,14 +47,29 @@ public class clientHandler extends Thread {
         String message = input.nextLine(); //IMPORTANT blocking call
         Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.CLOSE)) {
-            es.send(message);
-            Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
+            if (message.contains(ProtocolStrings.CONNECT)) {
+                String[] str = message.split("#");
+                name = str[str.length - 1];
+                serv.allOnlineUsers();
+            } else if (message.contains(ProtocolStrings.SEND)) {
+                String[] str = message.split("#");
+
+                if (str[1].equalsIgnoreCase("*")) {
+                    
+                    serv.sendAll(message, name);
+                } else {
+                    serv.send("MESSAGE#" + str[1] + "#" + str[str.length - 1], str[1]);
+                }
+            }
+
+            Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
             message = input.nextLine(); //IMPORTANT blocking call
         }
-        writer.println(ProtocolStrings.CLOSE);//Echo the stop message back to the client for a nice closedown
+//        writer.println(ProtocolStrings.CLOSE);//Echo the stop message back to the client for a nice closedown
         try {
             socket.close();
-            es.removeHandler(this);
+            serv.removeHandler(this);
+            serv.allOnlineUsers();
         } catch (IOException ex) {
             Logger.getLogger(clientHandler.class.getName()).log(Level.SEVERE, null, ex);
         }

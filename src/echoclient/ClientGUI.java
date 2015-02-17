@@ -22,7 +22,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
     public ClientGUI() {
 
         try {
-                 ec.connect("localhost", 9090);
+                 ec.connect("192.168.1.2", 9090);
              } catch (IOException ex) {
                  Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -48,11 +48,11 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTextArea.setEditable(false);
         jTextArea.setColumns(20);
         jTextArea.setRows(5);
         jScrollPane1.setViewportView(jTextArea);
 
-        jTextField1.setText("Skriv din besked her....");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -77,7 +77,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
                     .addComponent(jTextField1))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
