@@ -48,11 +48,11 @@ public class clientHandler extends Thread {
         Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.CLOSE)) {
             if (message.contains(ProtocolStrings.CONNECT)) {
-                String[] str = message.split("#");
+                String[] str = message.split(ProtocolStrings.SEPERATOR);
                 name = str[str.length - 1];
                 serv.allOnlineUsers();
             } else if (message.contains(ProtocolStrings.SEND)) {
-                String[] str = message.split("#");
+                String[] str = message.split(ProtocolStrings.SEPERATOR);
 
                 if (str[1].equalsIgnoreCase("*")) {
                     
