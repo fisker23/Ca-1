@@ -72,7 +72,7 @@ public class Client extends Thread {
 
     public static void main(String[] args) {
         int port = 9090;
-        String ip = "192.168.1.2";
+        String ip = "localhost";
         if (args.length == 2) {
             port = Integer.parseInt(args[0]);
             ip = args[1];
