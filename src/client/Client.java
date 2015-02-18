@@ -30,12 +30,12 @@ public class Client extends Thread {
         socket = new Socket(serverAddress, port);
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);  //Set to true, to get auto flush behaviour
-        output.println("CONNECT#"+name);
+        output.println(ProtocolStrings.CONNECT+name);
         //   start();
     }
 
     public void send(String msg, String names) {
-        output.println("SEND#"+names+"#"+msg);
+        output.println(ProtocolStrings.SEND+names+ProtocolStrings.SEPERATOR+msg);
     }
 
 //    public void stopConnection() throws IOException {
@@ -81,7 +81,7 @@ public class Client extends Thread {
         try {
             cl.connect(ip, port);
             cl.send("SKER DER FISSER", "BobK");
-            cl.output.println("CLOSE#");
+            cl.output.println(ProtocolStrings.CLOSE);
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }

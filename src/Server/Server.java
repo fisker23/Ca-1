@@ -32,7 +32,7 @@ public class Server {
             all += ch.name+",";
         }
         for (clientHandler ch : chl) {
-            ch.send("ONLINE#"+all);
+            ch.send(ProtocolStrings.ONLINE+all);
         }
       
     }
@@ -64,17 +64,17 @@ public class Server {
     }
     
      public void sendAll(String message, String sender){
-         String[] str = message.split("#");
+         String[] str = message.split(ProtocolStrings.SEPERATOR);
          
          for (clientHandler chl1 : chl) {
-             chl1.send("MESSAGE#"+sender+"#"+str[str.length-1]);
+             chl1.send(ProtocolStrings.MESSAGE+sender+ProtocolStrings.SEPERATOR+str[str.length-1]);
          }
     }
      public void send(String message, String names, String sender){
          
          for (clientHandler ch : chl) {
              if (names.contains(ch.name)) {
-                 ch.send("MESSAGE#" + sender + "#" + message);
+                 ch.send(ProtocolStrings.MESSAGE + sender + ProtocolStrings.SEPERATOR + message);
              }
          }
      }

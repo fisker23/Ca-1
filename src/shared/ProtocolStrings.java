@@ -11,4 +11,9 @@ public class ProtocolStrings {
     
     public static final String SEND = "SEND#";
     
+    public static final String MESSAGE = "MESSAGE#";
+    
+    public static final String ONLINE = "ONLINE#";
+    
+    public static final String SEPERATOR = "#";
 }
