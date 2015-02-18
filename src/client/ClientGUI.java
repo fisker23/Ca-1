@@ -6,9 +6,12 @@
 package client;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+import shared.ProtocolStrings;
+import static sun.net.www.http.HttpClient.New;
 
 /**
  *
@@ -20,6 +23,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
      * Creates new form ClientGUI
      */
          Client client = new Client();
+         DefaultListModel<String> dlm = new DefaultListModel<String>();
     public ClientGUI() {
 
         try {
@@ -29,8 +33,13 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
              }
         client.registerListener(this);
         client.start();
+        
         initComponents();
-          this.getRootPane().setDefaultButton(jButtonSend);
+        jTextAreaChat.setText(" ");
+        
+        jListUsers.setModel(dlm);
+        
+        
     }
 
     /**
@@ -117,10 +126,13 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         String str = jTextFieldInput.getText();
         jTextFieldInput.setText("");
         String userString = "";
-        List userList = jListUsers.getSelectedValuesList();
-        for (Object userList1 : userList) {
-            userString += userList.toString();
-        }
+        ListModel userList = jListUsers.getModel();
+        for (int i = 0; i < userList.getSize(); i++) {
+            if(jListUsers.isSelectedIndex(i)){
+                userString += userList.getElementAt(i) + ",";
+                   System.out.println(jListUsers.isSelectedIndex(i));
+                  
+        }}
         System.out.println(userString);
         client.send(str, userString);
         
@@ -174,7 +186,21 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
 
     @Override
     public void messageArrived(String data) {
+     
+        //jTextAreaChat.setText(jTextAreaChat.getText() + " \n " + data);
         
-        jTextAreaChat.setText(jTextAreaChat.getText() + " \n " + data);
+        if(data.contains(ProtocolStrings.ONLINE)){
+        String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
+        tempstrings = tempstrings[1].split(",");
+            dlm.clear();
+        for (String tempstring : tempstrings) {
+                
+            dlm.addElement(tempstring);
+            }
+            String online = "";
+            for (String tempstring : tempstrings) {
+                online += tempstring;
+            }
+            jTextAreaChat.setText("\nClients Online: "+online);    }
     }
 }
