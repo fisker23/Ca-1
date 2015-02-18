@@ -187,9 +187,9 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
     @Override
     public void messageArrived(String data) {
      
-        //jTextAreaChat.setText(jTextAreaChat.getText() + " \n " + data);
         
         if(data.contains(ProtocolStrings.ONLINE)){
+            System.out.println("ONLINE (if)");
         String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
         tempstrings = tempstrings[1].split(",");
             dlm.clear();
@@ -197,10 +197,17 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
                 
             dlm.addElement(tempstring);
             }
-            String online = "";
-            for (String tempstring : tempstrings) {
-                online += tempstring;
-            }
-            jTextAreaChat.setText("\nClients Online: "+online);    }
+           
+        }
+        else if(data.contains(ProtocolStrings.MESSAGE)){
+            String[] msg = data.split(ProtocolStrings.SEPERATOR);
+            System.out.println(msg[msg.length-1]);
+            String input = jTextAreaChat.getText()+msg[msg.length-1]+"\n";
+            jTextAreaChat.setText("STORE BABSER");
+            jTextAreaChat.setText(input);
+        }
+        else{
+            System.out.println("ingen if");
+        }
     }
 }
