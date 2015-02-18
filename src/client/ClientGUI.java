@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 import shared.ProtocolStrings;
+import sun.awt.AppContext;
 import static sun.net.www.http.HttpClient.New;
 
 /**
@@ -35,8 +36,8 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         client.start();
         
         initComponents();
-        jTextAreaChat.setText(" ");
         
+        jTextAreaChat.setText(" ");
         jListUsers.setModel(dlm);
         
         
@@ -59,6 +60,11 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         jListUsers = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jTextAreaChat.setEditable(false);
         jTextAreaChat.setColumns(20);
@@ -78,11 +84,6 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
             }
         });
 
-        jListUsers.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jListUsers);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,11 +123,13 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
     }//GEN-LAST:event_jTextFieldInputActionPerformed
 
     private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
-        // TODO add your handling code here:
-        String str = jTextFieldInput.getText();
+         String str = jTextFieldInput.getText();
         jTextFieldInput.setText("");
         String userString = "";
         ListModel userList = jListUsers.getModel();
+        if (userList.getElementAt(0).equals("*")){
+            client.send(str, "*");
+       } else{
         for (int i = 0; i < userList.getSize(); i++) {
             if(jListUsers.isSelectedIndex(i)){
                 userString += userList.getElementAt(i) + ",";
@@ -135,8 +138,16 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         }}
         System.out.println(userString);
         client.send(str, userString);
-        
+        }
     }//GEN-LAST:event_jButtonSendActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+             try {
+                 client.stopConnection();
+             } catch (IOException ex) {
+                 Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+             }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -171,6 +182,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
             
             public void run() {
                 new ClientGUI().setVisible(true);
+                
             }
         });
     }
@@ -193,6 +205,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
         tempstrings = tempstrings[1].split(",");
             dlm.clear();
+            dlm.addElement("*");
         for (String tempstring : tempstrings) {
                 
             dlm.addElement(tempstring);
@@ -201,10 +214,21 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         }
         else if(data.contains(ProtocolStrings.MESSAGE)){
             String[] msg = data.split(ProtocolStrings.SEPERATOR);
-            System.out.println(msg[msg.length-1]);
-            String input = jTextAreaChat.getText()+msg[msg.length-1]+"\n";
-            jTextAreaChat.setText("STORE BABSER");
+            System.out.println(msg[msg.length-1]+" : MESSAGE (if)");
+            String input = jTextAreaChat.getText()+msg[1]+": "+msg[msg.length-1]+"\n";
             jTextAreaChat.setText(input);
+        }
+        else if(data.contains(ProtocolStrings.CLOSE)){
+            System.out.println("CLOSE (if)");
+            String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
+        tempstrings = tempstrings[1].split(",");
+            dlm.clear();
+            dlm.addElement("*");
+        for (String tempstring : tempstrings) {
+                
+            dlm.addElement(tempstring);
+            }
+            
         }
         else{
             System.out.println("ingen if");

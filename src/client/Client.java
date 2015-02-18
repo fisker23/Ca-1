@@ -38,9 +38,9 @@ public class Client extends Thread {
         output.println(ProtocolStrings.SEND+names+ProtocolStrings.SEPERATOR+msg);
     }
 
-//    public void stopConnection() throws IOException {
-//        output.println(ProtocolStrings.STOP);
-//    }
+    public void stopConnection() throws IOException {
+        output.println(ProtocolStrings.CLOSE);
+    }
     public void registerListener(Listener l) {
         listeners.add(l);
     }
