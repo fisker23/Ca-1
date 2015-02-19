@@ -20,7 +20,7 @@ import java.net.InetSocketAddress;
  * @author Andreas Fisker
  */
 public class httpServer {
-    
+
     static int port = 8080;
     static String ip = "127.0.0.1";
     static String contentFolder = "public/";
@@ -30,6 +30,13 @@ public class httpServer {
             port = Integer.parseInt(args[1]);
             ip = args[0];
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Server.main(null);
+            }
+        }).start();
+
         HttpServer server = HttpServer.create(new InetSocketAddress(ip, port), 0);
         server.createContext("/", new RequestHandler());
         server.setExecutor(null); // Use the default executor
@@ -41,19 +48,19 @@ public class httpServer {
 
         @Override
         public void handle(HttpExchange he) throws IOException {
-            
-            File file = new File("public/index.html");
+
+            File file = new File(contentFolder + "index.html");
             byte[] bytesToSend = new byte[(int) file.length()];
-            try{
+            try {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-                bis.read(bytesToSend,0,bytesToSend.length);
-            } catch(IOException ie){
+                bis.read(bytesToSend, 0, bytesToSend.length);
+            } catch (IOException ie) {
                 ie.printStackTrace();
-                
+
             }
             he.sendResponseHeaders(200, bytesToSend.length);
-            try(OutputStream os = he.getResponseBody()) {
-                os.write(bytesToSend,0,bytesToSend.length);
+            try (OutputStream os = he.getResponseBody()) {
+                os.write(bytesToSend, 0, bytesToSend.length);
             }
         }
     }
