@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import shared.ProtocolStrings;
 import sun.awt.AppContext;
@@ -145,7 +146,12 @@ static String ip = "Drankie.cloudapp.net";
     }//GEN-LAST:event_jTextFieldInputActionPerformed
 
     private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
-         String str = jTextFieldInput.getText();
+        if (jTextFieldInput.getText().isEmpty()) {
+            
+        }
+        else{
+            
+        String str = jTextFieldInput.getText();
         jTextFieldInput.setText("");
         String userString = "";
         ListModel userList = jListUsers.getModel();
@@ -162,11 +168,13 @@ static String ip = "Drankie.cloudapp.net";
         System.out.println(userString);
         client.send(str, userString);
         }
+        }
     }//GEN-LAST:event_jButtonSendActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
              try {
                  client.stopConnection();
+                 JOptionPane.showMessageDialog(rootPane,"Closing Connection");
              } catch (IOException ex) {
                  Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -230,7 +238,6 @@ static String ip = "Drankie.cloudapp.net";
      
         
         if(data.contains(ProtocolStrings.ONLINE)){
-            System.out.println("ONLINE (if)");
         String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
         tempstrings = tempstrings[1].split(",");
             dlm.clear();
@@ -243,12 +250,10 @@ static String ip = "Drankie.cloudapp.net";
         }
         else if(data.contains(ProtocolStrings.MESSAGE)){
             String[] msg = data.split(ProtocolStrings.SEPERATOR);
-            System.out.println(msg[msg.length-1]+" : MESSAGE (if)");
             String input = jTextAreaChat.getText()+"(R)"+msg[1]+": "+msg[msg.length-1]+"\n";
             jTextAreaChat.setText(input);
         }
         else if(data.contains(ProtocolStrings.CLOSE)){
-            System.out.println("CLOSE (if)");
             String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
         tempstrings = tempstrings[1].split(",");
             dlm.clear();
