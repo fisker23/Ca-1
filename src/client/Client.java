@@ -20,11 +20,11 @@ public class Client extends Thread {
     private InetAddress serverAddress;
     private Scanner input;
     private PrintWriter output;
-    private  String name = "Paul";
+    private  String name = "";
     List<Listener> listeners = new ArrayList();
 
     public void connect(String address, int port) throws UnknownHostException, IOException {
-//        name = JOptionPane.showInputDialog("Indtast dit navn!");
+        name = JOptionPane.showInputDialog("Indtast dit navn!");
         this.port = port;
         serverAddress = InetAddress.getByName(address);
         socket = new Socket(serverAddress, port);

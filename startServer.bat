@@ -1,0 +1,1 @@
+java -cp Ca-1.jar Server.Server localhost 9090

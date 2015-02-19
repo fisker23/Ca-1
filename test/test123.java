@@ -62,7 +62,7 @@ public class test123 implements Listener{
             Logger.getLogger(test123.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(msg);
-        assertEquals("ONLINE#"+client.getClientName()+",", msg);
+        assertTrue(msg.startsWith("ONLINE#"));
         
     }
     @Test
@@ -79,6 +79,22 @@ public class test123 implements Listener{
         }
         System.out.println(msg);
         assertEquals("MESSAGE#"+client.getClientName()+"#Vi tester nu send metoden!", msg);
+        
+    }
+    @Test
+    public void close() throws IOException{
+        Client client = new Client();
+        client.registerListener(this);
+        client.connect("localhost", 9090);
+        client.start();
+        client.stopConnection();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(test123.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(msg);
+        assertEquals("CLOSE#", msg);
         
     }
     
