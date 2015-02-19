@@ -21,7 +21,7 @@ import static sun.net.www.http.HttpClient.New;
  */
 public class ClientGUI extends javax.swing.JFrame implements Listener {
 static int port = 9090;
-static String ip = "localhost";
+static String ip = "100.72.76.73";
     /**
      * Creates new form ClientGUI
      */
