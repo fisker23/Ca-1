@@ -19,7 +19,8 @@ import static sun.net.www.http.HttpClient.New;
  * @author Andreas Fisker
  */
 public class ClientGUI extends javax.swing.JFrame implements Listener {
-
+static int port = 9090;
+static String ip = "localhost";
     /**
      * Creates new form ClientGUI
      */
@@ -28,7 +29,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
     public ClientGUI() {
 
         try {
-                 client.connect("localhost", 9090);
+                 client.connect(ip, port);
              } catch (IOException ex) {
                  Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -58,6 +59,9 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         jButtonSend = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListUsers = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -86,33 +90,51 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
 
         jScrollPane2.setViewportView(jListUsers);
 
+        jLabel1.setText("Brugerliste");
+
+        jLabel2.setText("Chat");
+
+        jLabel3.setText("Input");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jTextFieldInput, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSend)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1)
+                                .addComponent(jTextFieldInput, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE))
+                            .addComponent(jLabel2))
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSend)))
+                    .addComponent(jLabel3))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSend))
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
 
         pack();
@@ -127,10 +149,10 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         jTextFieldInput.setText("");
         String userString = "";
         ListModel userList = jListUsers.getModel();
-       jTextAreaChat.setText(jTextAreaChat.getText()+ "\n"+ client.getClientName()+": "+str);
         if (userList.getElementAt(0).equals("*") && jListUsers.isSelectedIndex(0)){
             client.send(str, "*");
        } else{
+       jTextAreaChat.setText(jTextAreaChat.getText()+ "\n"+ "(S)" +client.getClientName()+": "+str+"\n");
         for (int i = 0; i < userList.getSize(); i++) {
             if(jListUsers.isSelectedIndex(i)){
                 userString += userList.getElementAt(i) + ",";
@@ -178,7 +200,10 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         //</editor-fold>
 
         /* Create and display the form */
-       
+       if(args.length==2){
+           port = Integer.parseInt(args[1]);
+           ip = args[0];
+       }
         java.awt.EventQueue.invokeLater(new Runnable() {
             
             public void run() {
@@ -190,6 +215,9 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSend;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList jListUsers;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -216,7 +244,7 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         else if(data.contains(ProtocolStrings.MESSAGE)){
             String[] msg = data.split(ProtocolStrings.SEPERATOR);
             System.out.println(msg[msg.length-1]+" : MESSAGE (if)");
-            String input = jTextAreaChat.getText()+msg[1]+": "+msg[msg.length-1]+"\n";
+            String input = jTextAreaChat.getText()+"(R)"+msg[1]+": "+msg[msg.length-1]+"\n";
             jTextAreaChat.setText(input);
         }
         else if(data.contains(ProtocolStrings.CLOSE)){
