@@ -51,7 +51,7 @@ public class httpServer {
     static class RequestLogFile implements HttpHandler {
 
         public void handle(HttpExchange he) throws IOException {
-            File file = new File(contentFolder + "logFile.txt");
+            File file = new File("chatLog.txt");
             byte[] bytesToSend = new byte[(int) file.length()];
             try {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
