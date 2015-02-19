@@ -127,7 +127,8 @@ public class ClientGUI extends javax.swing.JFrame implements Listener {
         jTextFieldInput.setText("");
         String userString = "";
         ListModel userList = jListUsers.getModel();
-        if (userList.getElementAt(0).equals("*")){
+       jTextAreaChat.setText(jTextAreaChat.getText()+ "\n"+ client.getClientName()+": "+str);
+        if (userList.getElementAt(0).equals("*") && jListUsers.isSelectedIndex(0)){
             client.send(str, "*");
        } else{
         for (int i = 0; i < userList.getSize(); i++) {

@@ -20,7 +20,7 @@ public class Client extends Thread {
     private InetAddress serverAddress;
     private Scanner input;
     private PrintWriter output;
-    String name;
+    private  String name;
     List<Listener> listeners = new ArrayList();
 
     public void connect(String address, int port) throws UnknownHostException, IOException {
@@ -33,7 +33,9 @@ public class Client extends Thread {
         output.println(ProtocolStrings.CONNECT+name);
         //   start();
     }
-
+    public String getClientName(){
+     return name;   
+    }
     public void send(String msg, String names) {
         output.println(ProtocolStrings.SEND+names+ProtocolStrings.SEPERATOR+msg);
     }
@@ -44,7 +46,7 @@ public class Client extends Thread {
     public void registerListener(Listener l) {
         listeners.add(l);
     }
-
+    
     public void unRegisterListener(Listener l) {
         listeners.remove(l);
     }
