@@ -45,7 +45,6 @@ public class clientHandler extends Thread {
     public void run() {
 
         String message = input.nextLine(); //IMPORTANT blocking call
-        Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
         while (!message.equals(ProtocolStrings.CLOSE)) {
             if (message.contains(ProtocolStrings.CONNECT)) {
                 String[] str = message.split(ProtocolStrings.SEPERATOR);
@@ -65,7 +64,7 @@ public class clientHandler extends Thread {
             Logger.getLogger(Server.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));
             message = input.nextLine(); //IMPORTANT blocking call
         }
-//        writer.println(ProtocolStrings.CLOSE);//Echo the stop message back to the client for a nice closedown
+        writer.println(ProtocolStrings.CLOSE);
         try {
             socket.close();
             serv.removeHandler(this);

@@ -21,7 +21,8 @@ import static sun.net.www.http.HttpClient.New;
  */
 public class ClientGUI extends javax.swing.JFrame implements Listener {
 static int port = 9090;
-static String ip = "uffeserver.cloudapp.net";
+//static String ip = "uffeserver.cloudapp.net";
+static String ip = "localhost";
     /**
      * Creates new form ClientGUI
      */
@@ -173,8 +174,8 @@ static String ip = "uffeserver.cloudapp.net";
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
              try {
-                 client.stopConnection();
                  JOptionPane.showMessageDialog(rootPane,"Closing Connection");
+                 client.stopConnection();
              } catch (IOException ex) {
                  Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
              }
@@ -252,17 +253,6 @@ static String ip = "uffeserver.cloudapp.net";
             String[] msg = data.split(ProtocolStrings.SEPERATOR);
             String input = jTextAreaChat.getText()+"(R)"+msg[1]+": "+msg[msg.length-1]+"\n";
             jTextAreaChat.setText(input);
-        }
-        else if(data.contains(ProtocolStrings.CLOSE)){
-            String[] tempstrings = data.split(ProtocolStrings.SEPERATOR);
-        tempstrings = tempstrings[1].split(",");
-            dlm.clear();
-            dlm.addElement("*");
-        for (String tempstring : tempstrings) {
-                
-            dlm.addElement(tempstring);
-            }
-            
         }
         else{
             System.out.println("ingen if");

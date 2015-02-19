@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import shared.ProtocolStrings;
 
 /**
  *
@@ -43,7 +44,7 @@ public class test123 implements Listener{
     
     @Before
     public void setUp() {
-        
+        msg = "";
     }
     
     @After
@@ -61,7 +62,6 @@ public class test123 implements Listener{
         } catch (InterruptedException ex) {
             Logger.getLogger(test123.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(msg);
         assertTrue(msg.startsWith("ONLINE#"));
         
     }
@@ -77,24 +77,29 @@ public class test123 implements Listener{
         } catch (InterruptedException ex) {
             Logger.getLogger(test123.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(msg);
         assertEquals("MESSAGE#"+client.getClientName()+"#Vi tester nu send metoden!", msg);
         
     }
     @Test
-    public void close() throws IOException{
+    public void closeClient() throws IOException{
         Client client = new Client();
         client.registerListener(this);
         client.connect("localhost", 9090);
         client.start();
+        String firstName = client.getClientName();
         client.stopConnection();
+        Client client2 = new Client();
+        client2.registerListener(this);
+        client2.connect("localhost", 9090);
+        client2.start();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(test123.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("First name: "+firstName+"\tSecond name: "+client2.getClientName());
         System.out.println(msg);
-        assertEquals("CLOSE#", msg);
+        assertFalse(msg.contains(firstName));
         
     }
     
@@ -102,6 +107,5 @@ public class test123 implements Listener{
     @Override
     public void messageArrived(String data) {
         msg = data;
-        System.out.println(msg + "   : DET HER ER BESKEDEN YO");
     }
 }
