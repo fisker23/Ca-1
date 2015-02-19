@@ -50,7 +50,6 @@ public class Server {
             do {
                 Socket socket = serverSocket.accept(); //Important Blocking call
                 Logger.getLogger(Server.class.getName()).log(Level.INFO, "Connected to a client");
-         //       handleClient(socket);
                 clientHandler ch = new clientHandler(socket, this);
                 ch.start();
                 chl.add(ch);

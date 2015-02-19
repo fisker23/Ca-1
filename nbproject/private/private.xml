@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Uffe/Ca-1/src/Server/clientHandler.java</file>
-            <file>file:/C:/Users/Uffe/Ca-1/src/client/ClientGUI.java</file>
-            <file>file:/C:/Users/Uffe/Ca-1/src/Server/Server.java</file>
-            <file>file:/C:/Users/Uffe/Ca-1/src/client/Client.java</file>
-            <file>file:/C:/Users/Uffe/Ca-1/src/shared/ProtocolStrings.java</file>
-            <file>file:/C:/Users/Uffe/Ca-1/src/client/Listener.java</file>
+            <file>file:/C:/Users/Uffe/Documents/NetBeansProjects/Ca-1/src/client/ClientGUI.java</file>
+            <file>file:/C:/Users/Uffe/Documents/NetBeansProjects/Ca-1/src/client/Client.java</file>
+            <file>file:/C:/Users/Uffe/Documents/NetBeansProjects/Ca-1/src/Server/Server.java</file>
         </group>
     </open-files>
 </project-private>
