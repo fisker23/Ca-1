@@ -17,10 +17,13 @@ public class Server {
     private static boolean keepRunning = true;
     private static ServerSocket serverSocket;
     private static final Properties properties = Utils.initProperties("server.properties");
-    private List<clientHandler> chl = new ArrayList();
-
+    private static List<clientHandler> chl = new ArrayList();
     public static void stopServer() {
         keepRunning = false;
+    }
+    
+    public static int usersOnline(){
+    return chl.size();
     }
     
     public void allOnlineUsers(){
