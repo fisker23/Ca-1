@@ -21,8 +21,8 @@ import static sun.net.www.http.HttpClient.New;
  */
 public class ClientGUI extends javax.swing.JFrame implements Listener {
 static int port = 9090;
-//static String ip = "uffeserver.cloudapp.net";
-static String ip = "localhost";
+static String ip = "uffeserver.cloudapp.net";
+//static String ip = "localhost";
     /**
      * Creates new form ClientGUI
      */
@@ -37,9 +37,9 @@ static String ip = "localhost";
              }
         client.registerListener(this);
         client.start();
-        
         initComponents();
         
+        this.getRootPane().setDefaultButton(jButtonSend);
         jTextAreaChat.setText(" ");
         jListUsers.setModel(dlm);
         
@@ -143,7 +143,7 @@ static String ip = "localhost";
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldInputActionPerformed
-        // TODO add your handling code here:
+        jButtonSendActionPerformed(evt);
     }//GEN-LAST:event_jTextFieldInputActionPerformed
 
     private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
