@@ -42,6 +42,7 @@ public class httpServer {
         server.createContext("/OnlineUsers", new RequestUsersOnline());
         server.createContext("/ChatClient.jar", new RequestChatClient());
         server.createContext("/log", new RequestLogFile());
+        server.createContext("/document.pdf", new RequestDocumentFile());
         server.createContext("/", new RequestWebsite());
         server.setExecutor(null); // Use the default executor
         server.start();
@@ -52,6 +53,23 @@ public class httpServer {
 
         public void handle(HttpExchange he) throws IOException {
             File file = new File("chatLog.txt");
+            byte[] bytesToSend = new byte[(int) file.length()];
+            try {
+                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+                bis.read(bytesToSend, 0, bytesToSend.length);
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            }
+            he.sendResponseHeaders(200, bytesToSend.length);
+            try (OutputStream os = he.getResponseBody()) {
+                os.write(bytesToSend, 0, bytesToSend.length);
+            }
+        }
+    }
+    static class RequestDocumentFile implements HttpHandler {
+
+        public void handle(HttpExchange he) throws IOException {
+            File file = new File(contentFolder+"document.pdf");
             byte[] bytesToSend = new byte[(int) file.length()];
             try {
                 BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
