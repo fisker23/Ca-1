@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.text.DefaultCaret;
 import shared.ProtocolStrings;
 import sun.awt.AppContext;
 import static sun.net.www.http.HttpClient.New;
@@ -25,11 +26,10 @@ static String ip = "uffeserver.cloudapp.net";
 //static String ip = "localhost";
     /**
      * Creates new form ClientGUI
-     */
+     */private DefaultCaret caret;
          Client client = new Client();
          DefaultListModel<String> dlm = new DefaultListModel<String>();
     public ClientGUI() {
-
         try {
                  client.connect(ip, port);
              } catch (IOException ex) {
@@ -39,6 +39,8 @@ static String ip = "uffeserver.cloudapp.net";
         client.start();
         initComponents();
         
+        caret = (DefaultCaret) jTextAreaChat.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         this.getRootPane().setDefaultButton(jButtonSend);
         jTextAreaChat.setText(" ");
         jListUsers.setModel(dlm);
